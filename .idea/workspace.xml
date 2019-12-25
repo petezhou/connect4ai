@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19bcd1fb-034b-4224-a847-4159e9963d21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/my-app/config/env.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/jest/cssTransform.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/jest/fileTransform.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/modules.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/paths.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/pnpTs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/config/webpackDevServer.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/scripts/build.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/scripts/start.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my-app/scripts/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="19bcd1fb-034b-4224-a847-4159e9963d21" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +16,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/my-app" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1VU68ycEP3Sl4p3uiAqIgezzPYv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -42,6 +26,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -65,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577295170748</updated>
-      <workItem from="1577295172187" duration="2016000" />
+      <workItem from="1577295172187" duration="2463000" />
     </task>
     <servers />
   </component>
