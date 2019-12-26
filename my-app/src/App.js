@@ -28,6 +28,9 @@ class Board extends React.Component {
 
     handleClick(i, j) {
         const squares = this.state.squares.map((arr) => arr.slice());
+        if (calculateWinner(squares)){
+            return
+        }
         for (let row = 5; row >= 0; row--){
             if (squares[row][j] == null) {
                 squares[row][j] = this.state.redIsNext ? "red" : "yellow";
@@ -43,8 +46,12 @@ class Board extends React.Component {
     render() {
         const winner = calculateWinner(this.state.squares);
         let status;
-        if (winner) {
-            status = winner + " wins!"
+        if (winner === "red") {
+            status = "Player 1 wins!"
+        } else if (winner === "yellow") {
+            status = "Player 2 wins!"
+        } else if (winner === "draw") {
+            status = "It's a draw."
         } else {
             status = ""
         }
@@ -105,7 +112,7 @@ class Board extends React.Component {
                     {this.renderSquare(5, 5)}
                     {this.renderSquare(5, 6)}
                 </div>
-
+                <h3>{status}</h3>
             </div>
         );
     }
@@ -123,9 +130,66 @@ function App() {
 }
 
 
+function calculateWinner(board) {
+    // check columns
+    for (let r = 3; r < 6; r++) {
+        for (let c = 0; c < 7; c++) {
+            if (board[r][c]) {
+                if (board[r][c] === board[r - 1][c] &&
+                    board[r][c] === board[r - 2][c] &&
+                    board[r][c] === board[r - 3][c]) {
+                    return board[r][c];
+                }
+            }
+        }
+    }
+    // check rows
+    for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < 4; c++) {
+            if (board[r][c]) {
+                if (board[r][c] === board[r][c + 1] &&
+                    board[r][c] === board[r][c + 2] &&
+                    board[r][c] === board[r][c + 3]) {
+                    return board[r][c];
+                }
+            }
+        }
+    }
+    // diagonal right
+    for (let r = 3; r < 6; r++) {
+      for (let c = 0; c < 4; c++) {
+        if (board[r][c]) {
+          if (board[r][c] === board[r - 1][c + 1] &&
+              board[r][c] === board[r - 2][c + 2] &&
+              board[r][c] === board[r - 3][c + 3]) {
+            return board[r][c];
+          }
+        }
+      }
+    }
+    // diagonal left
+    for (let r = 3; r < 6; r++) {
+      for (let c = 3; c < 7; c++) {
+        if (board[r][c]) {
+          if (board[r][c] === board[r - 1][c - 1] &&
+              board[r][c] === board[r - 2][c - 2] &&
+              board[r][c] === board[r - 3][c - 3]) {
+            return board[r][c];
+          }
+        }
+      }
+    }
+    // draw
+    for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < 7; c++) {
+            if (!board[r][c]){
+                return null;
+            }
+        }
+    }
+    return "draw";
+}
+
+
 export default App;
 
-
-function calculateWinner(theBoard) {
-    return "Player 1"
-}

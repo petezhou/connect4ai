@@ -3,24 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="19bcd1fb-034b-4224-a847-4159e9963d21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.d1b05096.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.d1b05096.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.250dc4af.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.250dc4af.chunk.js.LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.250dc4af.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.6accd2c5.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.6accd2c5.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/media/logo.5d5d9eef.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/precache-manifest.4c93b3190fdc6a393530e539879446be.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/ai/static/react/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.84badf82.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.84badf82.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js.LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.84367629.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.84367629.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/runtime-main.c8d8d2c6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/runtime-main.c8d8d2c6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/precache-manifest.6cfdd897770413da3dd2dd53f8b6a4c0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/service-worker.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ai/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ai/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +36,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1VU68ycEP3Sl4p3uiAqIgezzPYv" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -71,6 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1577295170748</updated>
       <workItem from="1577295172187" duration="16143000" />
+      <workItem from="1577377099970" duration="2346000" />
     </task>
     <servers />
   </component>
@@ -82,13 +83,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/my-app" />
     </ignored-roots>
