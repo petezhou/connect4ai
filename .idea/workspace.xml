@@ -2,19 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19bcd1fb-034b-4224-a847-4159e9963d21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ai/static/react/css/main.95335c8f.chunk.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/static/react/css/main.95335c8f.chunk.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/static/react/js/main.828d3db9.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/static/react/js/main.828d3db9.chunk.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/static/react/precache-manifest.0ff604811cc4c2ca603e4ce2ab600669.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.84badf82.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.84badf82.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js.LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/2.e494a0c8.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.84367629.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.84367629.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/runtime-main.c8d8d2c6.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/js/runtime-main.c8d8d2c6.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/precache-manifest.6cfdd897770413da3dd2dd53f8b6a4c0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/static/react/service-worker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/static/react/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.f4eb28fc.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/css/main.f4eb28fc.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.c4d199f9.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/js/main.c4d199f9.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/precache-manifest.0acae9fb524efaa62c4046ba85259686.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/static/react/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/ai/static/react/service-worker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ai/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/App.js" afterDir="false" />
@@ -71,7 +71,8 @@
       <option name="presentableId" value="Default" />
       <updated>1577295170748</updated>
       <workItem from="1577295172187" duration="16143000" />
-      <workItem from="1577377099970" duration="2346000" />
+      <workItem from="1577377099970" duration="7667000" />
+      <workItem from="1577386951871" duration="3987000" />
     </task>
     <servers />
   </component>

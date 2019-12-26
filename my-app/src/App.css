@@ -35,6 +35,10 @@ h1{
   background: yellow;
 }
 
+.bluePiece {
+  background: #282c34;
+}
+
 .board-row:after {
   clear: both;
   content: "";

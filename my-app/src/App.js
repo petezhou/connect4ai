@@ -4,11 +4,14 @@ import './App.css';
 
 function Square(props) {
     if (props.value === "red"){
-        return <button className="square redPiece" onClick={props.onClick}> </button>;
+        return <button className="square redPiece" onClick={props.onClick} onMouseOver={props.onMouseOver}> </button>;
     } else if (props.value === "yellow") {
-        return <button className="square yellowPiece" onClick={props.onClick}> </button>;
-    } else {
-        return <button className="square" onClick={props.onClick}> </button>;
+        return <button className="square yellowPiece" onClick={props.onClick} onMouseOver={props.onMouseOver}> </button>;
+    } else if (props.value === "blue") {
+        return <button className="square bluePiece" onClick={props.onClick} onMouseOver={props.onMouseOver}> </button>;
+    }
+    else {
+        return <button className="square" onClick={props.onClick} onMouseOver={props.onMouseOver}> </button>;
     }
 }
 
@@ -18,28 +21,61 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(6).fill(Array(7).fill(null)),
-            redIsNext: true
+            redIsNext: true,
+            hovers: Array(7).fill("blue")
         };
     }
 
     renderSquare(i, j) {
-        return <Square value={this.state.squares[i][j]} onClick={() => this.handleClick(i, j)} />
+        return <Square value={this.state.squares[i][j]} onClick={() => this.handleClick(j)} onMouseOver={() => this.handleHover(j)} />
     }
 
-    handleClick(i, j) {
+    handleClick(col) {
         const squares = this.state.squares.map((arr) => arr.slice());
-        if (calculateWinner(squares)){
-            return
-        }
-        for (let row = 5; row >= 0; row--){
-            if (squares[row][j] == null) {
-                squares[row][j] = this.state.redIsNext ? "red" : "yellow";
-                this.setState({
-                   squares: squares,
-                   redIsNext: !this.state.redIsNext
-                });
-                return;
+        if (calculateWinner(squares)){ return; }
+        const hoversRow = Array(7).fill("blue");
+        this.setState({ hovers: hoversRow });
+        this.handleTrickle(squares, 0, col)
+    }
+
+    handleTrickle(board, row, col) {
+        if (row < 6 && board[row][col] == null) {
+            if (row !== 0) {
+                board[row - 1][col] = null;
             }
+            board[row][col] = this.state.redIsNext ? "red" : "yellow";
+            this.setState({
+                squares: board
+            });
+            setTimeout(this.handleTrickle.bind(this), 50, board, row + 1, col);
+        } else {
+            // after trickle is done, we need to update states
+            const hoversRow = Array(7).fill("blue");
+            hoversRow[col] = this.state.redIsNext ? "yellow" : "red";
+            this.setState({
+                hovers: hoversRow,
+                redIsNext: !this.state.redIsNext
+            });
+
+            // best place for AI to go.
+        }
+    }
+
+    renderHover(col) {
+        return <Square value={this.state.hovers[col]} onClick={() => this.handleClick(col)} onMouseOver={() => this.handleHover(col)} />
+    }
+
+    handleHover(col) {
+        const hoversRow = Array(7).fill("blue")
+        if (calculateWinner(this.state.squares)) {
+            this.setState({
+                hovers: hoversRow
+            });
+        } else {
+            hoversRow[col] = this.state.redIsNext ? "red" : "yellow";
+            this.setState({
+                hovers: hoversRow
+            });
         }
     }
 
@@ -58,6 +94,15 @@ class Board extends React.Component {
 
         return (
             <div className="board">
+                <div className="board-row">
+                    {this.renderHover(0)}
+                    {this.renderHover(1)}
+                    {this.renderHover(2)}
+                    {this.renderHover(3)}
+                    {this.renderHover(4)}
+                    {this.renderHover(5)}
+                    {this.renderHover(6)}
+                </div>
                 <div className="board-row">
                     {this.renderSquare(0, 0)}
                     {this.renderSquare(0, 1)}
