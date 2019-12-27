@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import $ from 'jquery'
 
 
 function Square(props) {
@@ -24,9 +25,11 @@ class Board extends React.Component {
             redIsNext: true,
             hovers: Array(7).fill("blue"),
             doneDrop: true,
-            isPvp: props.isPvp,
-            isAi1: props.isAi1
+            isAiThinking: false,
         };
+        if (props.isAi1) {
+            this.runAi(this.state.squares);
+        }
     }
 
     renderSquare(i, j) {
@@ -41,7 +44,7 @@ class Board extends React.Component {
         const hoversRow = Array(7).fill("blue");
         this.setState({
                 hovers: hoversRow,
-                doneDrop: false
+                doneDrop: false,
             });
         this.handleTrickle(squares, 0, col);
     }
@@ -58,17 +61,24 @@ class Board extends React.Component {
             });
             setTimeout(this.handleTrickle.bind(this), 50, board, row + 1, col);
         } else {
-            // after trickle is done, we need to update states
+            // after trickle is done, we need to update states and AI
+            this.setState({ isAiThinking: false });
             const hoversRow = Array(7).fill("blue");
-            hoversRow[col] = this.state.redIsNext ? "yellow" : "red";
+            if (this.props.isPvp) {
+                hoversRow[col] = this.state.redIsNext ? "yellow" : "red";
+            }
             this.setState({
                 doneDrop: true,
                 hovers: hoversRow,
                 redIsNext: !this.state.redIsNext
             });
 
-            // best place for AI to go.
-
+            // AI time!
+            if (!this.props.isPvp ) {
+                if (this.props.isAi1 && this.state.redIsNext || !this.props.isAi1 && !this.state.redIsNext){
+                    this.runAi(board)
+                }
+            }
         }
     }
 
@@ -77,8 +87,8 @@ class Board extends React.Component {
     }
 
     handleHover(col) {
-        const hoversRow = Array(7).fill("blue")
-        if (calculateWinner(this.state.squares)) {
+        const hoversRow = Array(7).fill("blue");
+        if (calculateWinner(this.state.squares) || this.state.isAiThinking) {
             this.setState({
                 hovers: hoversRow
             });
@@ -90,30 +100,43 @@ class Board extends React.Component {
         }
     }
 
-    resetGame(){
+    resetGame() {
         this.setState({
             squares: Array(6).fill(Array(7).fill(null)),
             redIsNext: true,
             hovers: Array(7).fill("blue"),
             doneDrop: true,
-            isPvp: this.props.isPvp,
-            isAi1: this.props.isAi1
+            isAiThinking: false
         })
     }
 
-    static getDerivedStateFromProps(props, state){
-        // basically restart the game on change
-        if (props.isPvp !== state.isPvp || props.isAi1 !== state.isAi1){
-            return {
+    runAi(board) {
+        this.setState({ isAiThinking: true });
+        const obj = {
+            turn : this.state.redIsNext ? "red" : "yellow",
+            board : board
+        };
+        $.post("/ai", JSON.stringify(obj) , (function (data) {
+            // play the move on callback
+            this.handleClick(Number(data));
+        }).bind(this));
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.isPvp !== prevProps.isPvp || this.props.isAi1 !== prevProps.isAi1){
+            this.setState({
                 squares: Array(6).fill(Array(7).fill(null)),
                 redIsNext: true,
                 hovers: Array(7).fill("blue"),
                 doneDrop: true,
-                isPvp: props.isPvp,
-                isAi1: props.isAi1
-            };
+                isAiThinking: false
+            });
+            if (this.props.isAi1) {
+                const squares = this.state.squares.map((arr) => arr.slice());
+                this.runAi(squares)
+            }
         }
-        return null;
+
     }
 
     render() {
