@@ -107,7 +107,11 @@ class Board extends React.Component {
             hovers: Array(7).fill("blue"),
             doneDrop: true,
             isAiThinking: false
-        })
+        });
+        if (this.props.isAi1) {
+            const squares = this.state.squares.map((arr) => arr.slice());
+            this.runAi(squares)
+        }
     }
 
     runAi(board) {
