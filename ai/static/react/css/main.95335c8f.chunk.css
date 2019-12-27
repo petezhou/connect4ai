@@ -1,2 +1,0 @@
-body{background-color:#282c34}.App{text-align:center;color:#fff}h1{font-size:50px}.board{display:inline-block}.square{background:#fff;border:1px solid #282c34;float:left;font-size:24px;font-weight:700;line-height:60px;height:60px;margin-right:4px;margin-top:4px;padding:0;text-align:center;width:60px;border-radius:55%}.redPiece{background:red}.yellowPiece{background:#ff0}.bluePiece{background:#282c34}.board-row:after{clear:both;content:"";display:table}.square:focus{outline:none}
-/*# sourceMappingURL=main.95335c8f.chunk.css.map */

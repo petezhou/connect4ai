@@ -22,7 +22,10 @@ class Board extends React.Component {
         this.state = {
             squares: Array(6).fill(Array(7).fill(null)),
             redIsNext: true,
-            hovers: Array(7).fill("blue")
+            hovers: Array(7).fill("blue"),
+            doneDrop: true,
+            isPvp: props.isPvp,
+            isAi1: props.isAi1
         };
     }
 
@@ -32,10 +35,15 @@ class Board extends React.Component {
 
     handleClick(col) {
         const squares = this.state.squares.map((arr) => arr.slice());
-        if (calculateWinner(squares)){ return; }
+        if (calculateWinner(squares) || squares[0][col] != null || !this.state.doneDrop){
+            return;
+        }
         const hoversRow = Array(7).fill("blue");
-        this.setState({ hovers: hoversRow });
-        this.handleTrickle(squares, 0, col)
+        this.setState({
+                hovers: hoversRow,
+                doneDrop: false
+            });
+        this.handleTrickle(squares, 0, col);
     }
 
     handleTrickle(board, row, col) {
@@ -45,7 +53,8 @@ class Board extends React.Component {
             }
             board[row][col] = this.state.redIsNext ? "red" : "yellow";
             this.setState({
-                squares: board
+                squares: board,
+                doneDrop: false
             });
             setTimeout(this.handleTrickle.bind(this), 50, board, row + 1, col);
         } else {
@@ -53,11 +62,13 @@ class Board extends React.Component {
             const hoversRow = Array(7).fill("blue");
             hoversRow[col] = this.state.redIsNext ? "yellow" : "red";
             this.setState({
+                doneDrop: true,
                 hovers: hoversRow,
                 redIsNext: !this.state.redIsNext
             });
 
             // best place for AI to go.
+
         }
     }
 
@@ -79,17 +90,45 @@ class Board extends React.Component {
         }
     }
 
+    resetGame(){
+        this.setState({
+            squares: Array(6).fill(Array(7).fill(null)),
+            redIsNext: true,
+            hovers: Array(7).fill("blue"),
+            doneDrop: true,
+            isPvp: this.props.isPvp,
+            isAi1: this.props.isAi1
+        })
+    }
+
+    static getDerivedStateFromProps(props, state){
+        // basically restart the game on change
+        if (props.isPvp !== state.isPvp || props.isAi1 !== state.isAi1){
+            return {
+                squares: Array(6).fill(Array(7).fill(null)),
+                redIsNext: true,
+                hovers: Array(7).fill("blue"),
+                doneDrop: true,
+                isPvp: props.isPvp,
+                isAi1: props.isAi1
+            };
+        }
+        return null;
+    }
+
     render() {
-        const winner = calculateWinner(this.state.squares);
         let status;
-        if (winner === "red") {
-            status = "Player 1 wins!"
-        } else if (winner === "yellow") {
-            status = "Player 2 wins!"
-        } else if (winner === "draw") {
-            status = "It's a draw."
-        } else {
-            status = ""
+        if (this.state.doneDrop === true){
+            const winner = calculateWinner(this.state.squares);
+            if (winner === "red") {
+                status = "Player 1 wins!"
+            } else if (winner === "yellow") {
+                status = "Player 2 wins!"
+            } else if (winner === "draw") {
+                status = "It's a draw."
+            } else {
+                status = ""
+            }
         }
 
         return (
@@ -157,6 +196,7 @@ class Board extends React.Component {
                     {this.renderSquare(5, 5)}
                     {this.renderSquare(5, 6)}
                 </div>
+                <button id="restart" onClick={() => this.resetGame()}>Restart</button>
                 <h3>{status}</h3>
             </div>
         );
@@ -164,15 +204,79 @@ class Board extends React.Component {
 }
 
 
-function App() {
-    // who starts etc. handled here and passed as props to Board
-    return (
-        <div className="App">
-            <h1>Connect 4</h1>
-            <Board/>
-        </div>
-    );
+class GameType extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        this.props.onTypeChange(event.target.value);
+    }
+
+    render() {
+        return (
+            <form>
+                <label>
+                    Game Mode: &nbsp;
+                    <select value={this.props.option} onChange={this.handleChange}>
+                        <option value="pvp">Player vs. Player</option>
+                        <option value="aip1">AI as Player 1</option>
+                        <option value="aip2">AI as Player 2</option>
+                    </select>
+                </label>
+            </form>
+        );
+    }
 }
+
+
+class App extends React.Component {
+    // who starts etc. handled here and passed as props to Board
+    constructor(props){
+        super(props);
+        this.state = {
+            mode: "pvp",
+            isPvp: true,
+            isAi1: false,
+        };
+        this.handleTypeChange = this.handleTypeChange.bind(this);
+    }
+
+    handleTypeChange(selected) {
+        let thePvp;
+        let theAi1;
+        if (selected === "pvp") {
+            thePvp = true;
+            theAi1 = false;
+        } else if (selected === "aip1") {
+            thePvp = false;
+            theAi1 = true;
+        } else if (selected === "aip1") {
+            thePvp = false;
+            theAi1 = false;
+        }
+        this.setState({
+            mode: selected,
+            isPvp: thePvp,
+            isAi1: theAi1
+        });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <h1>Connect 4</h1>
+                <GameType option={this.state.mode} onTypeChange={this.handleTypeChange}/>
+                <Board isPvp={this.state.isPvp} isAi1={this.state.isAi1}/>
+            </div>
+        );
+    }
+}
+
+
+
+
 
 
 function calculateWinner(board) {
