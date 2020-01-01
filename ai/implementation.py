@@ -40,7 +40,7 @@ def alpha_beta_search(board, depth,
                       eval_fn,
                       get_next_moves_fn=get_all_next_moves,
                       is_terminal_fn=is_terminal,
-                      verbose=False):
+                      verbose=True):
     best_val = None
 
     alpha = NEG_INFINITY
@@ -60,49 +60,75 @@ def alpha_beta_search(board, depth,
     return best_val[1]
 
 
-def check_if_three_hor_open(board, threes):
-    # a little short on time so only checking open ranks for now
-    theRow = threes[0][0]
-    for t in threes:
-        if t[0] != theRow:
-            False
+def open_three_in_row(board, threes):
+    cols = [i[1] for i in threes]
+    rows = [i[0] for i in threes]
+    maxCol = max(cols)
+    minCol = min(cols)
+    maxRow = max(rows)
+    minRow = min(rows)
 
-    cols = [i[0] for i in threes]
-    bigCol = max(cols)
-    smolCol = min(cols)
+    # don't deal with vertical
+    if maxCol == minCol:
+        return -1
 
-    if bigCol < 6:
-        if board.get_cell(theRow, bigCol + 1) == 0:
-            return True
-    elif smolCol > 0:
-        if board.get_cell(theRow, smolCol - 1) == 0:
-            return True
+    if maxRow == minRow:
+        # horizontal three-in-row
+        if maxCol < 6:
+            if board.get_cell(maxRow, maxCol + 1) == 0:
+                return maxRow
+        elif minCol > 0:
+            if board.get_cell(maxRow, minCol - 1) == 0:
+                return maxRow
+
     else:
-        return False
+        # diagonal three-in-row
+        if (threes[0][0] < threes[1][0] and threes[0][1] < threes[1][1]) or (threes[0][0] > threes[1][0] and threes[0][1] > threes[1][1]):
+            # x
+            #   X
+            if minCol > 0 and minRow > 0:
+                if board.get_cell(minRow - 1, minCol - 1) == 0:
+                    return minRow - 1
+            elif maxCol < 6 and maxRow < 5:
+                if board.get_cell(maxRow + 1, maxCol + 1) == 0:
+                    return maxRow + 1
+        else:
+            #   x
+            # x
+            if minCol > 0 and maxRow < 5:
+                if board.get_cell(maxRow + 1, minCol - 1) == 0:
+                    return maxRow + 1
+            elif maxCol < 6 and minRow > 0:
+                if board.get_cell(minRow - 1, maxCol + 1) == 0:
+                    return minRow - 1
+
+    return -1
 
 
 def better_evaluate(board):
     score = 0
     if board.is_game_over():
-        score = -(1000 - board.num_tokens_on_board())
+        score = -(3000 - board.num_tokens_on_board() * 4)
     else:
         if board.longest_chain(board.get_current_player_id()) >= 4:
-            score = 1000 - board.num_tokens_on_board()
+            score = 3000 - board.num_tokens_on_board() * 4
         else:
             ''' 
             The worst opening theory in the world 
             concerned with staking out space in the center
             hate edges in the first 10 moves
             '''
-            if board.get_cell(5,3) == board.get_current_player_id():
-                score += 40
-            if board.get_cell(4, 3) == board.get_current_player_id():
-                score += 40
-            if board.get_cell(3, 3) == board.get_current_player_id():
-                score += 15
 
             # I hate edges!
-            if board.num_tokens_on_board() < 10:
+            if board.num_tokens_on_board() < 7:
+                if board.get_cell(5, 3) == board.get_current_player_id():
+                    score += 300
+                if board.get_cell(4, 3) == board.get_current_player_id():
+                    score += 250
+                if board.get_cell(3, 3) == board.get_current_player_id():
+                    score += 300
+                if board.get_cell(2, 3) == board.get_current_player_id():
+                    score += 250
                 for row in range(6):
                     if board.get_cell(row, 0) == board.get_current_player_id():
                         score -= 25
@@ -121,43 +147,76 @@ def better_evaluate(board):
                     elif board.get_cell(row, col) == board.get_other_player_id():
                         score += abs(3 - col)
 
-            '''
-            Game strategy
-            '''
             # prefer clusters in the middle
-            for row in range(2, 5):
-                for col in range(3):
-                    if board.get_cell(row - 1, col) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row - 1, col - 1) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row, col - 1) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row + 1, col - 1) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row + 1, col) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row + 1, col + 1) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row, col + 1) == board.get_current_player_id():
-                        score += 4
-                    if board.get_cell(row - 1, col + 1) == board.get_current_player_id():
-                        score += 4
+            if board.num_tokens_on_board() < 14:
+                for row in range(2, 5):
+                    for col in range(3):
+                        if board.get_cell(row - 1, col) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row - 1, col - 1) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row, col - 1) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row + 1, col - 1) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row + 1, col) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row + 1, col + 1) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row, col + 1) == board.get_current_player_id():
+                            score += 4
+                        if board.get_cell(row - 1, col + 1) == board.get_current_player_id():
+                            score += 4
 
             # chase wins by getting 3 in a rows that are still open
             threes = list(filter(lambda x: len(x) == 3, board.chain_cells(board.get_current_player_id())))
-            otherTrees = list(filter(lambda x: len(x) == 3, board.chain_cells(board.get_other_player_id())))
-            numMyOpen = 0
-            numOtherOpen = 0
-
+            other_trees = list(filter(lambda x: len(x) == 3, board.chain_cells(board.get_other_player_id())))
+            my_open = []
+            other_open = []
             for t in threes:
-                if check_if_three_hor_open(board, t):
-                    numMyOpen += 1
-            for ot in otherTrees:
-                if check_if_three_hor_open(board, ot):
-                    numOtherOpen += 1
+                r = open_three_in_row(board, t)
+                if r > 0:
+                    my_open.append(r)
+            for ot in other_trees:
+                r = open_three_in_row(board, ot)
+                if r > 0:
+                    other_open.append(r)
 
-            score = score + (numMyOpen * 20 - numOtherOpen * 40)
+            # deep theory
+            if board.get_current_player_id() == 1:
+                for t in my_open:
+                    if t == 3:
+                        score += 500
+                    elif t == 1:
+                        score += 200
+                    else:
+                        score += 20
+                for ot in other_open:
+                    if ot == 4:
+                        score -= 305
+                    elif ot == 2:
+                        score -= 140
+                    elif ot == 0:
+                        score -= 95
+                    else:
+                        score -= 30
+            else:
+                for t in my_open:
+                    if t == 4:
+                        score += 305
+                    elif t == 2:
+                        score += 140
+                    elif t == 0:
+                        score += 95
+                    else:
+                        score += 20
+                for ot in other_open:
+                    if ot == 3:
+                        score -= 500
+                    elif ot == 1:
+                        score -= 200
+                    else:
+                        score -= 30
 
     return score
 
